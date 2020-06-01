@@ -1,0 +1,69 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userservice
+spec:
+  selector:
+    matchLabels:
+      app: userservice
+  template:
+    metadata:
+      labels:
+        app: userservice
+    spec:
+      terminationGracePeriodSeconds: 5
+      containers:
+      - name: userservice
+        image: gcr.io/bank-of-anthos/userservice:v0.1.0
+        volumeMounts:
+        - name: keys
+          mountPath: "/root/.ssh"
+          readOnly: true
+        ports:
+        - name: http-server
+          containerPort: 5050
+        env:
+        - name: VERSION
+          value: "v0.1.0"
+        - name: PORT
+          value: "5050"
+        - name: TOKEN_EXPIRY_SECONDS
+          value: "3600"
+        - name: PRIV_KEY_PATH
+          value: "/root/.ssh/privatekey"
+        - name: PUB_KEY_PATH
+          value: "/root/.ssh/privatekey"
+        envFrom:
+        - configMapRef:
+            name: accounts-db-config
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 5050
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: keys
+        secret:
+          secretName: jwt-key
+          items:
+          - key: jwtRS256.key
+            path: privatekey
+          - key: jwtRS256.key.pub
+            path: publickey
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: userservice
+spec:
+  type: ClusterIP
+  selector:
+    app: userservice
+  ports:
+  - name: http
+    port: 5050
+    targetPort: 5050

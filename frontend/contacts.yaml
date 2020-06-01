@@ -1,0 +1,67 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contacts
+spec:
+  selector:
+    matchLabels:
+      app: contacts
+  template:
+    metadata:
+      labels:
+        app: contacts
+    spec:
+      terminationGracePeriodSeconds: 5
+      containers:
+      - name: contacts
+        image: gcr.io/bank-of-anthos/contacts:v0.1.0
+        volumeMounts:
+        - name: publickey
+          mountPath: "/root/.ssh"
+          readOnly: true
+        env:
+        - name: VERSION
+          value: "v0.1.0"
+        - name: PORT
+          value: "8080"
+        - name: LOCAL_ROUTING_NUM
+          value: "123456789"
+        - name: PUB_KEY_PATH
+          value: "/root/.ssh/publickey"
+        envFrom:
+        - configMapRef:
+            name: accounts-db-config
+        resources:
+          requests:
+            cpu: 200m
+            memory: 64Mi
+          limits:
+            cpu: 300m
+            memory: 128Mi
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: publickey
+        secret:
+          secretName: jwt-key
+          items:
+          - key: jwtRS256.key.pub
+            path: publickey
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: contacts
+spec:
+  type: ClusterIP
+  selector:
+    app: contacts
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080

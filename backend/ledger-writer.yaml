@@ -1,0 +1,74 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ledgerwriter
+spec:
+  selector:
+    matchLabels:
+      app: ledgerwriter
+  template:
+    metadata:
+      labels:
+        app: ledgerwriter
+    spec:
+      terminationGracePeriodSeconds: 5
+      containers:
+      - name: writer
+        image: gcr.io/bank-of-anthos/ledgerwriter:v0.1.0
+        volumeMounts:
+        - name: publickey
+          mountPath: "/root/.ssh"
+          readOnly: true
+        env:
+        - name: VERSION
+          value: "v0.1.0"
+        - name: PORT
+          value: "6060"
+        - name: LOCAL_ROUTING_NUM
+          value: "123456789"
+        - name: BALANCES_API_ADDR
+          value: "balancereader.bank1.svc.cluster.local:7000"
+        - name: PUB_KEY_PATH
+          value: "/root/.ssh/publickey"
+         # tell Java to obey container memory limits
+        - name: JVM_OPTS
+          value: "-Xms1G -Xmx1G"
+        envFrom:
+        # add ledger-db credentials from ConfigMap
+        - configMapRef:
+            name: ledger-db-config
+        resources:
+          requests:
+            cpu: 200m
+            memory: 1Gi
+          limits:
+            cpu: 300m
+            memory: 2Gi
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 6060
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: publickey
+        secret:
+          secretName: jwt-key
+          items:
+          - key: jwtRS256.key.pub
+            path: publickey
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ledgerwriter
+spec:
+  type: ClusterIP
+  selector:
+    app: ledgerwriter
+  ports:
+  - name: http
+    port: 6060
+    targetPort: 6060
+
