@@ -5,7 +5,7 @@ metadata:
   name: ledgerwriter-entry
 spec:
   hosts:
-  - ledgerwriter.bank1.global
+  - ledgerwriter.bank-arc-backend.global
   location: MESH_INTERNAL
   ports:
   - name: http1
@@ -15,9 +15,9 @@ spec:
   addresses:
   - 240.0.0.2
   endpoints:
-  - address: 139.178.87.92
+  - address: 52.186.47.230
     labels:
-        cluster: onprem-cluster
+        cluster: azure-arc-cl
     ports:
       http1: 15443
 ---
@@ -27,7 +27,7 @@ metadata:
   name: balancereader-entry
 spec:
   hosts:
-  - balancereader.bank1.global
+  - balancereader.bank-arc-backend.global
   location: MESH_INTERNAL
   ports:
   - name: http1
@@ -37,9 +37,9 @@ spec:
   addresses:
   - 240.0.0.3
   endpoints:
-  - address: 139.178.87.92
+  - address: 52.186.47.230
     labels:
-        cluster: onprem-cluster
+        cluster: azure-arc-cl
     ports:
       http1: 15443
 ---
@@ -49,7 +49,7 @@ metadata:
   name: transactionhistory-entry
 spec:
   hosts:
-  - transactionhistory.bank1.global
+  - transactionhistory.bank-arc-backend.global
   location: MESH_INTERNAL
   ports:
   - name: http1
@@ -59,8 +59,8 @@ spec:
   addresses:
   - 240.0.0.4
   endpoints:
-  - address: 139.178.87.92
+  - address: 52.186.47.230
     labels:
-        cluster: onprem-cluster
+        cluster: azure-arc-cl
     ports:
       http1: 15443
