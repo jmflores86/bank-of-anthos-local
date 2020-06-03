@@ -27,15 +27,15 @@ spec:
         - name: PORT
           value: "8080"
         - name: TRANSACTIONS_API_ADDR
-          value: "ledgerwriter.bank1.global:6060"
+          value: "ledgerwriter.bank-arc-backend.global:6060"
         - name: BALANCES_API_ADDR
-          value: "balancereader.bank1.global:7000"
+          value: "balancereader.bank-arc-backend.global:7000"
         - name: HISTORY_API_ADDR
-          value: "transactionhistory.bank1.global:7070"
+          value: "transactionhistory.bank-arc-backend.global:7070"
         - name: CONTACTS_API_ADDR
-          value: "contacts.bank2.svc.cluster.local:8080"
+          value: "contacts.bank-arc-frontend.svc.cluster.local:8080"
         - name: USERSERVICE_API_ADDR
-          value: "userservice.bank2.svc.cluster.local:5050"
+          value: "userservice.bank-arc-frontend.svc.cluster.local:5050"
         - name: LOCAL_ROUTING_NUM
           value: "123456789"
         - name: PUB_KEY_PATH
