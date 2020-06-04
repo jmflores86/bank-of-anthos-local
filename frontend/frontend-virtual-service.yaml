@@ -13,6 +13,10 @@ spec:
     - destination:
         host: frontend
         subset: v1
+      weight: 0
+    - destination:
+        host: frontend
+        subset: v2
       weight: 100
 ---
 apiVersion: networking.istio.io/v1alpha3
@@ -25,3 +29,6 @@ spec:
   - name: v1
     labels:
       version: v1
+  - name: v2
+    labels:
+      version: v2
