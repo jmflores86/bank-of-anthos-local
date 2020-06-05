@@ -16,10 +16,10 @@ spec:
     spec:
       terminationGracePeriodSeconds: 5
       imagePullSecrets:
-      - name: azurearc
+      - name: frontend-secret
       containers:
       - name: front
-        image: arcepamcr.azurecr.io/bank-of-anthos-frontend:latest
+        image: arcepamcr.azurecr.io/bank-of-anthos-frontend:v2
         volumeMounts:
         - name: publickey
           mountPath: "/root/.ssh"
