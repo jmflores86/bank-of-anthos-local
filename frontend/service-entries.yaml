@@ -26,6 +26,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
   name: balancereader-entry
+  namespace: bank-arc-frontend
 spec:
   hosts:
   - balancereader.bank-arc-backend.global
@@ -48,6 +49,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
   name: transactionhistory-entry
+  namespace: bank-arc-frontend
 spec:
   hosts:
   - transactionhistory.bank-arc-backend.global
