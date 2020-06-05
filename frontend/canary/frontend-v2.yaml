@@ -16,7 +16,7 @@ spec:
     spec:
       terminationGracePeriodSeconds: 5
       imagePullSecrets:
-      - name: frontend-secret
+      - name: azurearc
       containers:
       - name: front
         image: arcepamcr.azurecr.io/bank-of-anthos-frontend:v2

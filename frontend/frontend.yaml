@@ -52,7 +52,7 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 5
       imagePullSecrets:
-      - name: frontend-secret
+      - name: azurearc
       volumes:
       - name: publickey
         secret:
