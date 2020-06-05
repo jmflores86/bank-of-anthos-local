@@ -3,7 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: accounts-db
-  namespace: bank-arc-frontend
   labels:
     app: accounts-db
     tier: db    

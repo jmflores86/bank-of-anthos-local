@@ -2,21 +2,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: contacts
-  namespace: bank-arc-frontend
+  name: balancereader
 spec:
   selector:
     matchLabels:
-      app: contacts
+      app: balancereader
   template:
     metadata:
       labels:
-        app: contacts
+        app: balancereader
     spec:
       terminationGracePeriodSeconds: 5
       containers:
-      - name: contacts
-        image: gcr.io/bank-of-anthos/contacts:v0.1.0
+      - name: reader
+        image: gcr.io/bank-of-anthos/balancereader:v0.1.0
         volumeMounts:
         - name: publickey
           mountPath: "/root/.ssh"
@@ -25,26 +24,39 @@ spec:
         - name: VERSION
           value: "v0.1.0"
         - name: PORT
-          value: "8080"
+          value: "7000"
         - name: LOCAL_ROUTING_NUM
           value: "123456789"
         - name: PUB_KEY_PATH
           value: "/root/.ssh/publickey"
+        - name: POLL_MS
+          value: "100"
+        - name: CACHE_SIZE
+          value: "1000000"
+        # tell Java to obey container memory limits
+        - name: JVM_OPTS
+          value: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
         envFrom:
+        # add ledger-db credentials from ConfigMap
         - configMapRef:
-            name: accounts-db-config
+            name: ledger-db-config
         resources:
           requests:
             cpu: 200m
-            memory: 64Mi
+            memory: 256Mi
           limits:
             cpu: 300m
-            memory: 128Mi
         readinessProbe:
           httpGet:
             path: /ready
-            port: 8080
+            port: 7000
           initialDelaySeconds: 5
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /healthy
+            port: 7000
+          initialDelaySeconds: 120
           periodSeconds: 5
       volumes:
       - name: publickey
@@ -57,12 +69,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: contacts
+  name: balancereader
 spec:
   type: ClusterIP
   selector:
-    app: contacts
+    app: balancereader
   ports:
   - name: http
-    port: 8080
-    targetPort: 8080
+    port: 7000
+    targetPort: 7000
+
