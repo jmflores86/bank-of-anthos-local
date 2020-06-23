@@ -14,11 +14,11 @@ spec:
     - destination:
         host: frontend
         subset: v1
-      weight: 50
+      weight: 100
     - destination:
         host: frontend
         subset: v2
-      weight: 50
+      weight: 00
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
