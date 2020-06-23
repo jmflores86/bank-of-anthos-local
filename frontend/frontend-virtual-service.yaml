@@ -3,7 +3,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: frontend-ingress
-  namespace: bank-arc-frontend
+  namespace: arc-frontend
 spec:
   hosts:
   - "*"
@@ -24,7 +24,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   name: frontend
-  namespace: bank-arc-frontend
+  namespace: arc-frontend
 spec:
   host: frontend
   subsets:
