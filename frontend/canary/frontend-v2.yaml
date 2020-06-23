@@ -30,11 +30,11 @@ spec:
         - name: PORT
           value: "8080"
         - name: TRANSACTIONS_API_ADDR
-          value: "ledgerwriter.bank-arc-backend.global:6060"
+          value: "ledgerwriter.bank-arc-backend1.global:6060"
         - name: BALANCES_API_ADDR
-          value: "balancereader.bank-arc-backend.global:7000"
+          value: "balancereader.bank-arc-backend1.global:7000"
         - name: HISTORY_API_ADDR
-          value: "transactionhistory.bank-arc-backend.global:7070"
+          value: "transactionhistory.bank-arc-backend1.global:7070"
         - name: CONTACTS_API_ADDR
           value: "contacts.arc-frontend.svc.cluster.local:8080"
         - name: USERSERVICE_API_ADDR
