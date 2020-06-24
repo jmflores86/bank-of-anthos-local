@@ -6,7 +6,7 @@ metadata:
   namespace: arc-frontend
 spec:
   hosts:
-  - ledgerwriter.bank-arc-backend.global
+  - ledgerwriter.arc-backend.global
   location: MESH_INTERNAL
   ports:
   - name: http1
@@ -29,7 +29,7 @@ metadata:
   namespace: arc-frontend
 spec:
   hosts:
-  - balancereader.bank-arc-backend.global
+  - balancereader.arc-backend.global
   location: MESH_INTERNAL
   ports:
   - name: http1
@@ -52,7 +52,7 @@ metadata:
   namespace: arc-frontend
 spec:
   hosts:
-  - transactionhistory.bank-arc-backend.global
+  - transactionhistory.arc-backend.global
   location: MESH_INTERNAL
   ports:
   - name: http1
