@@ -17,7 +17,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: front
-        image: arcepamcr.azurecr.io/bank-of-anthos-frontend:v1
+        image: arcdemocr.azurecr.io/bank-of-anthos-frontend:v1
         volumeMounts:
         - name: publickey
           mountPath: "/root/.ssh"

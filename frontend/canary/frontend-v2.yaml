@@ -19,7 +19,7 @@ spec:
       - name: azurearc
       containers:
       - name: front
-        image: arcepamcr.azurecr.io/bank-of-anthos-frontend:v2
+        image: arcdemocr.azurecr.io/bank-of-anthos-frontend:v2
         volumeMounts:
         - name: publickey
           mountPath: "/root/.ssh"

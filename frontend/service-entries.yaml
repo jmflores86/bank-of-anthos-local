@@ -16,7 +16,7 @@ spec:
   addresses:
   - 240.0.0.2
   endpoints:
-  - address: 52.191.101.71
+  - address: 52.149.247.132
     labels:
         cluster: backend-cluster1
     ports:
@@ -39,7 +39,7 @@ spec:
   addresses:
   - 240.0.0.3
   endpoints:
-  - address: 52.191.101.71
+  - address: 52.149.247.132
     labels:
         cluster: backend-cluster1
     ports:
@@ -62,7 +62,7 @@ spec:
   addresses:
   - 240.0.0.4
   endpoints:
-  - address: 52.191.101.71 
+  - address: 52.149.247.132
     labels:
         cluster: backend-cluster1
     ports:
