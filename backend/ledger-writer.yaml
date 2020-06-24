@@ -28,7 +28,7 @@ spec:
         - name: LOCAL_ROUTING_NUM
           value: "123456789"
         - name: BALANCES_API_ADDR
-          value: "balancereader.bank-arc-backend.svc.cluster.local:7000"
+          value: "balancereader.arc-backend.svc.cluster.local:7000"
         - name: PUB_KEY_PATH
           value: "/root/.ssh/publickey"
          # tell Java to obey container memory limits
