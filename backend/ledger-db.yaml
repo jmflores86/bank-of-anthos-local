@@ -9,6 +9,8 @@ spec:
       app: ledger-db
   template:
     metadata:
+      annotations:
+        sidecar.istio.io/inject: "true"
       labels:
         app: ledger-db
     spec:

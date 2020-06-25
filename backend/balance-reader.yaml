@@ -9,6 +9,8 @@ spec:
       app: balancereader
   template:
     metadata:
+      annotations:
+        sidecar.istio.io/inject: "true"
       labels:
         app: balancereader
     spec:
