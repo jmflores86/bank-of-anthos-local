@@ -15,9 +15,11 @@ spec:
         version: v1
     spec:
       terminationGracePeriodSeconds: 5
+      imagePullSecrets:
+      - name: azurearc
       containers:
       - name: front
-        image: gcr.io/bank-of-anthos/frontend:v0.1.0
+        image: arcdemocr.azurecr.io/bank-frontend:v1
         volumeMounts:
         - name: publickey
           mountPath: "/root/.ssh"
@@ -51,8 +53,6 @@ spec:
             port: 8080
           initialDelaySeconds: 5
           periodSeconds: 5
-      imagePullSecrets:
-      - name: azurearc
       volumes:
       - name: publickey
         secret:
