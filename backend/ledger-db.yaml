@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ledger-db
+  namespace: arc-backend
 spec:
   selector:
     matchLabels:
@@ -39,6 +40,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: ledger-db-config
+  namespace: arc-backend
   labels:
     app: postgres
 data:
