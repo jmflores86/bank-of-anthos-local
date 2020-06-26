@@ -18,7 +18,7 @@ spec:
     - destination:
         host: frontend
         subset: v2
-      weight: 20
+      weight: 10
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
